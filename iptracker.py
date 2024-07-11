@@ -15,7 +15,7 @@ ip = args.ip[0]
 
 try:
     # Get data from the APIs
-    print 'Tracking IP location...'
+    print('Tracking IP location...')
     try:
         country_basic_info = IPToCountry().get_country_basic_info_from_ip(ip)
     except urllib2.HTTPError as e:
@@ -25,10 +25,10 @@ try:
     if country_code == '': # ip2country returns an object with empty fields if the given IP is private e.g. 192.168.1.1
         raise InvalidPublicIPError('Error: ' + ip + ' is a private IP')
     country_emoji = country_basic_info['countryEmoji']
-    print 'Getting country data...'
+    print('Getting country data...')
     country_fields = ['name','languages','timezones','latlng','currencies']
     country_info = Countries().get_country_info(country_code=country_code, fields=country_fields)
-    print 'Getting currency latest rate...'
+    print('Getting currency latest rate...')
     currency_code = country_info['currencies'][0]['code']
     currency_rate = ExchangeRates().get_latest_rate(currency_code=currency_code, base_currency_code='USD')
 
@@ -50,6 +50,6 @@ try:
     country.print_distance(lat=-34.6, lon=-58.4)
 
 except InvalidPublicIPError as e:
-    print e.message
+    print(e.message)
 except Exception:
-    print 'Unknown Error: Verify your internet connection or try later'
+    print('Unknown Error: Verify your internet connection or try later')
